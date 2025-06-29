@@ -1,28 +1,31 @@
-import { Controller, Get, Post, Body, Param, Delete, Injectable } from '@nestjs/common';
-import { CreateHwidDto } from './dto/create-hwid.dto';
+import { Controller, Get, Post, Body, Param, Delete, Injectable, Query } from '@nestjs/common';
 import { HwidService } from './hwid.service';
 
 @Controller('hwids')
 export class HwidController {
   constructor(private readonly hwidService: HwidService) {}
 
-  @Post('/verify')
-  verify(@Param('hwid') hwid: string) {
+  @Get('/verify')
+  verify(@Query('hwid') hwid: string) {
     return this.hwidService.hwidVerify(hwid);
   }
 
   @Get('/add')
-  addHwidByCode(@Param('code') code: string, @Param('hwid') hwid: string) {
+  addHwidByCode(@Query('code') code: string, @Query('hwid') hwid: string) {
     return this.hwidService.addHwidByCode(code, hwid)
   }
 
   @Get('/new')
-  addNewCode(@Param('code') code: string, @Param('days') days: number ) {
-    return this.hwidService.addNewCode(code, days);
+  addNewCode(@Query('code') code: string, @Query('days') days: number ) {
+    console.log('Controller.hwids.addNewCode: ', {
+      code,
+      days,
+    })
+    return this.hwidService.addNewCode(code, Number(days));
   }
 
   @Delete()
-  delete(@Param('hwid') hwid: string) {
+  delete(@Query('hwid') hwid: string) {
     return this.hwidService.deleteHwid(hwid);
   }
 }

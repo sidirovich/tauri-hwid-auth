@@ -16,7 +16,7 @@ export class HwidService {
       },
     }).then(res => {
         return {
-            status: res.length ? 'ok' : 'expired',
+            status: res.length ? 'ok' : 'invalid',
             data: res,
         }
     }).catch(() => ({
@@ -62,8 +62,9 @@ export class HwidService {
             status: 'ok',
             data: res,
         }
-    }).catch(() => ({
+    }).catch((err) => ({
         status: 'error',
+        err: err,
     }));
   }
 
