@@ -40,8 +40,9 @@ export class HwidService {
             status: 'ok',
             data: res,
         }
-    }).catch(() => ({
+    }).catch((err) => ({
         status: 'error',
+        error: err,
     }));
   }
 
@@ -64,7 +65,7 @@ export class HwidService {
         }
     }).catch((err) => ({
         status: 'error',
-        err: err,
+        error: err,
     }));
   }
 

@@ -6,12 +6,12 @@ export class HwidController {
   constructor(private readonly hwidService: HwidService) {}
 
   @Get('/verify')
-  verify(@Query('hwid') hwid: string) {
+  async verify(@Query('hwid') hwid: string) {
     return this.hwidService.hwidVerify(hwid);
   }
 
   @Get('/add')
-  addHwidByCode(@Query('code') code: string, @Query('hwid') hwid: string) {
+  async addHwidByCode(@Query('code') code: string, @Query('hwid') hwid: string) {
     return this.hwidService.addHwidByCode(code, hwid)
   }
 
